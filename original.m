@@ -1,16 +1,29 @@
 package Date;
 
+import java.io.Console;
+import java.security.cert.CRL;
+import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.format.TextStyle;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Date {
-	private String month;
-	private int day;
+	private String month1;
+	private static int day;
 	private int year; // a four digit number.
-
-	public Date() {
+	private Locale l;
+	private TextStyle ts;
+static Date Display = Date.Display;
+	public  void DisplayDate () {
 		var month = "January";
 		var day = 2;
-		var year = 2020;
+		var year = 2023;
 	}
 
 	public Date(int monthInt, int day, int year) {
@@ -29,7 +42,7 @@ public class Date {
 
 	public void setDate(int monthInt, int day, int year) {
 		if (dateOK(monthInt, day, year)) {
-			this.month = monthString(monthInt);
+			this.month1 = String(monthInt);
 			this.day = day;
 			this.year = year;
 		} else {
@@ -40,11 +53,11 @@ public class Date {
 
 	public void setDate(String monthString, int day, int year) {
 		if (dateOK(monthString, day, year)) {
-			this.month = monthString;
+			this.month1 = monthString;
 			this.day = day;
 			this.year = year;
 		} else {
-			System.out.println("Fatal Error");
+			System.out.println("Put date");
 			System.exit(0);
 		}
 	}
@@ -66,13 +79,13 @@ public class Date {
 			System.out.println("Fatal Error");
 			System.exit(0);
 		} else
-			month = monthString(monthNumber);
+			month1 = String(monthNumber);
 	}
 
 	
 
 	public String getMonth() {
-		return month;
+		return month1;
 	}
 
 	public int getDay() {
@@ -84,11 +97,11 @@ public class Date {
 	}
 
 	public String toString() {
-		return (month + " " + day + ", " + year);
+		return (month1 + " " + day + ", " + year);
 	}
 
 	public boolean equals(Date otherDate) {
-		return ((month.equals(otherDate.month)) && (day == otherDate.day) && (year == otherDate.year));
+		return ((month1.equals(otherDate.month1)) && (day == otherDate.day) && (year == otherDate.year));
 	}
 
 	public void var() {
@@ -106,6 +119,7 @@ public class Date {
 			} else
 				System.out.println("Illegal date. Reenter input.");
 		}
+	
 	}
 
 	private boolean dateOK(int monthInt, int dayInt, int yearInt) {
@@ -118,13 +132,23 @@ public class Date {
 	}
 
 	private boolean month(String monthString) {
-		return (month.equals("January") || month.equals("February") || month.equals("March") || month.equals("April")
-				|| month.equals("May") || month.equals("June") || month.equals("July") || month.equals("August")
-				|| month.equals("September") || month.equals("October") || month.equals("November")
-				|| month.equals("December"));
+		return (month1.equals("January") || month1.equals("February") || month1.equals("March") || month1.equals("April")
+				|| month1.equals("May") || month1.equals("June") || month1.equals("July") || month1.equals("August")
+				|| month1.equals("September") || month1.equals("October") || month1.equals("November")
+				|| month1.equals("December"));
 	}
+	public class ExactDate {
+		public static void main(String[] args) {
+		    int year = 2023;
 
-	private String monthString(int month) {
+		    System.out.printf("For the year %d:%n", year);
+		    for (Month month : Month.values()) {
+		      YearMonth ym = YearMonth.of(year, month);
+		      System.out.printf("%s: %d days%n", month, ym.lengthOfMonth());
+		    }
+		  }
+		}
+	public String String(int month) {
 
 		int daysInMonth = 0;
 		switch (month) {
@@ -157,5 +181,7 @@ public class Date {
 			
 			return "Error"; // to keep the compiler happy
 		}
+		   
+		   
 	}
 }
